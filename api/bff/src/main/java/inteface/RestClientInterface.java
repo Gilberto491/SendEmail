@@ -1,5 +1,6 @@
 package inteface;
 
+import dto.BffDTO;
 import org.eclipse.microprofile.rest.client.inject.RegisterRestClient;
 
 import javax.ws.rs.POST;
@@ -11,7 +12,7 @@ import javax.ws.rs.core.MediaType;
 public interface RestClientInterface {
 
     @POST
-    @Path("/email/send")
+    @Path("/sending-email")
     @Produces(MediaType.APPLICATION_JSON)
-    String sendEmail(String emailTo, String message);
+    String sendEmail(BffDTO dto);
 }

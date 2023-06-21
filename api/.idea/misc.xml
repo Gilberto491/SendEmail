@@ -3,6 +3,7 @@
   <component name="FrameworkDetectionExcludesConfiguration">
     <file type="Quarkus" url="file://$PROJECT_DIR$/bff" />
     <file type="Quarkus" url="file://$PROJECT_DIR$/email" />
+    <file type="Qute" url="file://$PROJECT_DIR$/email" />
   </component>
   <component name="MavenProjectsManager">
     <option name="originalFiles">
