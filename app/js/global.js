@@ -1,48 +1,37 @@
-(function ($) {
-    'use strict';
+$(document).ready(function() {
+    toastr.options.timeOut = 5000;
+  // Intercepta o evento de envio do formulário
+$('#emailForm').submit(function(event) {
+event.preventDefault(); // Impede o envio tradicional do formulário
+var formData = {
+    emailTo: $('#destinatario').val(),
+    subject: $('#titulo').val(),
+    text: $('#mensagem').val()
+}; // Serializa os dados do formulário
+var loadingOverlay = $('.loading-overlay');
 
-    /*[ File Input Config ]
-        ===========================================================*/
-    
-    try {
-    
-        var file_input_container = $('.js-input-file');
-    
-        if (file_input_container[0]) {
-    
-            file_input_container.each(function () {
-    
-                var that = $(this);
-    
-                var fileInput = that.find(".input-file");
-                var info = that.find(".input-file__info");
-    
-                fileInput.on("change", function () {
-    
-                    var fileName;
-                    fileName = $(this).val();
-    
-                    if (fileName.substring(3,11) == 'fakepath') {
-                        fileName = fileName.substring(12);
-                    }
-    
-                    if(fileName == "") {
-                        info.text("No file chosen");
-                    } else {
-                        info.text(fileName);
-                    }
-    
-                })
-    
-            });
-    
-        }
-    
-    
-    
-    }
-    catch (e) {
-        console.log(e);
-    }
+// Exibe o ícone de carregamento e bloqueia a interação do usuário
+loadingOverlay.removeClass('d-none');
 
-})(jQuery);
+// Faz a chamada AJAX para enviar os dados
+$.ajax({
+    type: 'POST',
+    url: 'http://localhost:8080/api/enviar-email', // URL do endpoint Quarkus
+    contentType: 'application/json',
+    data: JSON.stringify(formData),
+    success: function(response) {
+    toastr.success('E-mail enviado com sucesso!');
+    // Limpa o formulário
+    $('#emailForm')[0].reset();
+    },
+    error: function() {
+    toastr.error('Ocorreu um erro ao enviar o e-mail.');
+    $('#emailForm')[0].reset();
+    },
+    complete: function() {
+    // Esconde o ícone de carregamento e permite a interação do usuário novamente
+    loadingOverlay.addClass('d-none');
+    }
+});
+});
+});
