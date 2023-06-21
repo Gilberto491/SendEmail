@@ -4,4 +4,4 @@ Tema: Envio de email com utilização de Web Services
 
 Tecnologias: Quarkus, Spring Boot
 
-Ferramentas: Postman, intellij IDEA, pgAdmin4
+Ferramentas: Postman, intellij IDEA, Visual Studio
